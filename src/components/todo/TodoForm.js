@@ -13,6 +13,7 @@ const TodoForm = ({state, onKeyPress, onChange, onSave}) => {
           value="Add Todo"
           className="btn btn-primary"
           onClick={onSave} />
+        {state.error && <div>{state.error}</div>}
         </div>
     );
 };
@@ -21,7 +22,8 @@ TodoForm.propTypes = {
     state: React.PropTypes.object.isRequired,
     onKeyPress: React.PropTypes.func.isRequired,
     onChange: React.PropTypes.func.isRequired,
-    onSave: React.PropTypes.func.isRequired
+    onSave: React.PropTypes.func.isRequired,
+    error: React.PropTypes.string
 };
 
 export default TodoForm;

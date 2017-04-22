@@ -12,7 +12,7 @@ class TodoFormContainer extends React.Component {
           todo: Object.assign({}, 
             props.todo || {_id: '', description: '', done: false}
           ),
-          errors: {}
+          error: ''
       };
       this.onChange = this.onChange.bind(this);
       this.onSave = this.onSave.bind(this);
@@ -30,6 +30,8 @@ class TodoFormContainer extends React.Component {
     event.preventDefault();
     this.props.actions.saveTodo(this.state.todo).then(() => {
       this.setState({ todo: Object.assign({}, {_id: '', description: '', done: false}) });
+    }).catch(error => {
+      this.setState({ error: error});
     });
   }
 

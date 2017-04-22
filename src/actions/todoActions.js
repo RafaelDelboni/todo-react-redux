@@ -47,7 +47,6 @@ export function saveTodo(todo) {
             todo._id ? dispatch(updateTodoSuccess(savedTodo)) : dispatch(saveTodoSuccess(savedTodo));
             return savedTodo;
         }).catch(error => {
-            console.error("An error occured:", error);
             throw(error);
         });
     };
@@ -59,7 +58,6 @@ export function deleteTodo(todo) {
             dispatch(deleteTodoSuccess(deletedTodo));
             return deletedTodo;
         }).catch(error => {
-            console.error("An error occured:", error);
             throw(error);
         });
     };

@@ -44,9 +44,7 @@ export function loadTodos() {
 export function saveTodo(todo) {
     return function(dispatch) { // thunk
         return todoApi.saveTodo(todo).then(savedTodo => {
-            console.log('returned todo:', savedTodo);
             todo._id ? dispatch(updateTodoSuccess(savedTodo)) : dispatch(saveTodoSuccess(savedTodo));
-            console.log('todo dispatched', savedTodo);
             return savedTodo;
         }).catch(error => {
             console.error("An error occured:", error);
@@ -59,7 +57,6 @@ export function deleteTodo(todo) {
     return function(dispatch) { // thunk
         return todoApi.deleteTodo(todo).then(deletedTodo => {
             dispatch(deleteTodoSuccess(deletedTodo));
-            console.log('todo deleted:', deletedTodo);
             return deletedTodo;
         }).catch(error => {
             console.error("An error occured:", error);

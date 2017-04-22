@@ -1,0 +1,15 @@
+exports[`Store should handle deleting todos 1`] = `
+Object {
+  "_id": 3,
+  "description": "Third todo",
+  "done": true,
+}
+`;
+
+exports[`Store should handle updating todos 1`] = `
+Object {
+  "_id": 2,
+  "description": "Second todo updated",
+  "done": true,
+}
+`;

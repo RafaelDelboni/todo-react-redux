@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import todoApi from '../api/mockTodoApi';
+import todoApi from '../api/todoApi.fake';
 
 export function loadTodosSuccess(todos) {
     return {
@@ -29,14 +29,34 @@ export function deleteTodoSuccess(todo) {
     };
 }
 
+export function loadTodosError(error) {
+    return {
+        type: types.LOAD_TODOS_ERROR,
+        error
+    };
+}
+
+export function saveTodoError(error) {
+    return {
+        type: types.CREATE_UPDATE_TODO_ERROR,
+        error
+    };
+}
+
+export function deleteTodoError(error) {
+    return {
+        type: types.DELETE_TODO_ERROR,
+        error
+    };
+}
+
 /* eslint-disable no-console */
 export function loadTodos() {
     return function (dispatch) { // thunk
       return todoApi.getAllTodos().then(todos => {
           dispatch(loadTodosSuccess(todos));
       }).catch(error => {
-          console.error("An error occured:", error);
-          throw(error);
+          dispatch(loadTodosError(error));
       });
     };
 }
@@ -47,7 +67,7 @@ export function saveTodo(todo) {
             todo._id ? dispatch(updateTodoSuccess(savedTodo)) : dispatch(saveTodoSuccess(savedTodo));
             return savedTodo;
         }).catch(error => {
-            throw(error);
+            dispatch(saveTodoError(error));
         });
     };
 }
@@ -58,7 +78,7 @@ export function deleteTodo(todo) {
             dispatch(deleteTodoSuccess(deletedTodo));
             return deletedTodo;
         }).catch(error => {
-            throw(error);
+            dispatch(deleteTodoError(error));
         });
     };
 }

@@ -23,7 +23,7 @@ describe('TodoFormContainer', () => {
       expect(wrapper.state().error).toBe('Fake error message.');
     });
   });
-  
+
   it('sets clear state todo after successful save', () => {
     const promise = Promise.resolve();
     const props = {
@@ -45,4 +45,41 @@ describe('TodoFormContainer', () => {
       expect(wrapper.state().todo).toEqual({_id: '', description: '', done: false});
     });
   });
+
+  it('should save todo when enter is pressed', () => {
+    const promise = Promise.resolve();
+    const props = {
+      todo: {_id: '', description: 'todo', done: true},
+      error: '',
+      actions: {
+        saveTodo: jest.fn(() => promise)
+      }
+    };
+
+    const wrapper = mount(<TodoFormContainer {...props} />);
+    const input = wrapper.find('input[type="text"]').last();
+    input.simulate('keyPress', {key: 'Enter'});
+
+    expect(props.actions.saveTodo).toBeCalled();
+  });
+
+  it('should change todo on state when keyboard', () => {
+    const promise = Promise.resolve();
+    const props = {
+      todo: {_id: '', description: 'todo', done: true},
+      error: '',
+      actions: {
+        saveTodo: jest.fn(() => promise)
+      }
+    };
+
+    const wrapper = mount(<TodoFormContainer {...props} />);
+    const input = wrapper.find('input[type="text"]').last();
+
+    expect(wrapper.state().todo.description).toBe('todo');
+    input.simulate('change', {target: {name: 'description', value: 'new todo'}});
+    expect(wrapper.state().todo.description).toBe('new todo');
+  });
+
+
 });

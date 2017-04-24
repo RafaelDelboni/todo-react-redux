@@ -1,29 +1,29 @@
 import React from 'react';
 
-const TodoForm = ({state, onKeyPress, onChange, onSave}) => {
+const TodoForm = ({todo, error, onKeyPress, onChange, onSave}) => {
     return (
       <div>
         <input type="text"
           name="description"
           label="Todo"
-          value={state.todo.description}
+          value={todo.description}
           onKeyPress={onKeyPress}
           onChange={onChange} />
         <input type="submit"
           value="Add Todo"
           className="btn btn-primary"
           onClick={onSave} />
-        {state.error && <div>{state.error}</div>}
+        {error && <div>{error}</div>}
         </div>
     );
 };
 
 TodoForm.propTypes = {
-    state: React.PropTypes.object.isRequired,
+    todo: React.PropTypes.object.isRequired,
+    error: React.PropTypes.string,
     onKeyPress: React.PropTypes.func.isRequired,
     onChange: React.PropTypes.func.isRequired,
-    onSave: React.PropTypes.func.isRequired,
-    error: React.PropTypes.string
+    onSave: React.PropTypes.func.isRequired
 };
 
 export default TodoForm;

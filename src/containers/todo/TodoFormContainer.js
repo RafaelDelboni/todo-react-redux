@@ -5,12 +5,13 @@ import {bindActionCreators} from 'redux';
 import TodoForm from '../../components/todo/TodoForm';
 import * as todoActions from '../../actions/todoActions';
 
-class TodoFormContainer extends React.Component {
-  constructor(props) {
-      super(props);
+export class TodoFormContainer extends React.Component {
+  constructor(props, context) {
+      super(props, context);
+
       this.state = {
           todo: Object.assign({}, 
-            props.todo || {_id: '', description: '', done: false}
+            props.todo
           ),
           error: ''
       };
@@ -31,7 +32,7 @@ class TodoFormContainer extends React.Component {
     this.props.actions.saveTodo(this.state.todo).then(() => {
       this.setState({ todo: Object.assign({}, {_id: '', description: '', done: false}) });
     }).catch(error => {
-      this.setState({ error: error});
+      this.setState({error: error});
     });
   }
 
@@ -44,13 +45,21 @@ class TodoFormContainer extends React.Component {
   render() {
     return (
       <TodoForm 
-        state={this.state}
+        todo={this.state.todo}
+        error={this.state.error}
         onKeyPress={this.onKeyPress}
         onChange={this.onChange}
         onSave={this.onSave}
       />
     );
   }
+}
+
+function mapStateToProps(state) {
+  let initialTodo = state.todo || {_id:'', description:'', done: false};
+  return {
+    todo: initialTodo
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -64,4 +73,4 @@ TodoFormContainer.propTypes = {
     actions: React.PropTypes.object.isRequired
 };
 
-export default connect(null, mapDispatchToProps)(TodoFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoFormContainer);

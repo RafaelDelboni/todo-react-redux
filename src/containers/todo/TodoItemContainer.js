@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import TodoItem from '../../components/todo/TodoItem';
 import * as todoActions from '../../actions/todoActions';
 
-class TodoItemContainer extends React.Component {
+export class TodoItemContainer extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
@@ -13,26 +13,26 @@ class TodoItemContainer extends React.Component {
           isBeingEdited: false,
           errors: {}
       };
-      this.todoDescriptionUpdate = this.todoDescriptionUpdate.bind(this);
-      this.todoSave = this.todoSave.bind(this);
+      this.todoStateUpdate = this.todoStateUpdate.bind(this);
+      this.todoStateSaveAction = this.todoStateSaveAction.bind(this);
       this.onCheckboxChange = this.onCheckboxChange.bind(this);
       this.onDoubleClick = this.onDoubleClick.bind(this);
       this.onKeyDown = this.onKeyDown.bind(this);
       this.onDelete = this.onDelete.bind(this);
   }
 
-  todoDescriptionUpdate(event) {
+  todoStateUpdate(event) {
     const field = event.target.name;
     let todo = this.state.todo;
     todo[field] = event.target.value;
     this.setState({todo});
   }
 
-  todoSave(event) {
+  todoStateSaveAction(event) {
     event.preventDefault();
     let todo = this.state.todo;
     this.props.actions.saveTodo(todo).then(() => {
-      this.setState({isBeingEdited: false});
+      this.setState({todo, isBeingEdited: false});
     });
   }
 
@@ -42,8 +42,9 @@ class TodoItemContainer extends React.Component {
     todo[field] = event.target.type === 'checkbox' ? 
       event.target.checked : 
       event.target.value;
-
-    this.props.actions.saveTodo(this.state.todo);
+    this.props.actions.saveTodo(todo).then(() => {
+      this.setState({ todo });
+    });
   }
 
   onDoubleClick(event) {
@@ -56,8 +57,8 @@ class TodoItemContainer extends React.Component {
   onKeyDown (event) {
     const KEY_ENTER = 13, KEY_ESC = 27;
     if (event.keyCode === KEY_ENTER) {
-      this.todoDescriptionUpdate(event);
-      this.todoSave(event);
+      this.todoStateUpdate(event);
+      this.todoStateSaveAction(event);
     } else if (event.keyCode === KEY_ESC) {
       this.setState({
         isBeingEdited: false

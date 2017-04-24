@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import TodoFormContainer from './TodoFormContainer';
 import TodoList from '../../components/todo/TodoList';
 
-class TodosPage extends React.Component {
+export class TodosPage extends React.Component {
   constructor(props, context) {
     super(props, context);
   }

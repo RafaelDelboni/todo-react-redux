@@ -1,20 +1,28 @@
 import React, {PropTypes} from 'react';
 import Header from '../components/common/Header';
+import {connect} from 'react-redux';
 
 class App extends React.Component {
-    render() {
-        // children will be passed by React Router //
-        return (
-            <div>
-                <Header />
-                {this.props.children}
-            </div>
-        );
-    }
+  render() {
+    // children will be passed by React Router //
+    return (
+      <div>
+        <Header loading={this.props.loading} />
+        {this.props.children}
+      </div>
+    );
+  }
 }
 
 App.propTypes = {
-    children: PropTypes.object.isRequired
+  children: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    loading: state.ajaxCallsInProgress > 0
+  };
+}
+
+export default connect(mapStateToProps)(App);

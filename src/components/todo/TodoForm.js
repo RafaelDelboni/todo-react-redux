@@ -2,16 +2,18 @@ import React from 'react';
 
 const TodoForm = ({todo, error, onKeyPress, onChange, onSave}) => {
     return (
-      <div>
-        <input type="text"
+      <div className="input-field">
+        <input className="add-todo"
+          type="text"
           name="description"
           label="Todo"
+          placeholder="Add new todo..."
           value={todo.description}
           onKeyPress={onKeyPress}
           onChange={onChange} />
         <input type="submit"
-          value="Add Todo"
-          className="btn btn-primary"
+          value="Add"
+          className="add-button btn add"
           onClick={onSave} />
         {error && <div>{error}</div>}
         </div>

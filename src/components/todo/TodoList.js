@@ -4,7 +4,7 @@ import TodoItemContainer from '../../containers/todo/TodoItemContainer';
 const TodoList = (props) => {
     return (
       <div>
-        <ul>
+        <ul className="ul-container">
           {props.todos.map(todo =>
             <TodoItemContainer key={todo._id} todo={todo} />
           )}

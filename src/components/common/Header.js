@@ -1,9 +1,16 @@
 import React, {PropTypes}  from 'react';
 import { Link, IndexLink } from 'react-router';
+import TopBarProgress from "react-topbar-progress-indicator";
 
-// This is a class-based component because the current
-// version of hot reloading won't hot reload a stateless
-// component at the top-level.
+TopBarProgress.config({
+  barThickness: 2,
+  barColors: {
+    "0": "#4CC8FF",
+    "0.5": "#00B1FF",
+    "1.0": "#26647F",
+  },
+  shadowBlur: 5,
+});
 
 class Header extends React.Component {
   constructor(props) {
@@ -13,14 +20,14 @@ class Header extends React.Component {
   render() {
     const {loading} = this.props;
     return (
-      <div>
-        <IndexLink to="/">All</IndexLink>
-        {' | '}
-        <Link to="/active">Active</Link>
-        {' | '}
-        <Link to="/completed">Completed</Link>
-        {loading && ' Loading...'}
-      </div>
+			<div className="head-flex-item">
+				<ul className="tabs">
+					<li className="tab"><IndexLink to="/" activeClassName="active">All</IndexLink></li>
+					<li className="tab"><Link to="/active" activeClassName="active">Active</Link></li>
+					<li className="tab"><Link to="/completed" activeClassName="active">Completed</Link></li>
+				</ul>	
+        {loading && <TopBarProgress />}
+			</div>
     );
   }
 }

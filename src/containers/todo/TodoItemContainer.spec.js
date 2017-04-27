@@ -30,10 +30,10 @@ describe('TodoItemContainer', () => {
     };
 
     const wrapper = mount(<TodoItemContainer {...props} />);
-    const label = wrapper.find('label');
+    const div = wrapper.find('div.todo-input');
 
     expect(wrapper.state().isBeingEdited).toBe(false);
-    label.simulate('doubleclick');
+    div.simulate('doubleclick');
     expect(wrapper.state().isBeingEdited).toBe(true);
   });
 

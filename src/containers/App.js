@@ -6,7 +6,7 @@ class App extends React.Component {
   render() {
     // children will be passed by React Router //
     return (
-      <div>
+      <div className="flex-container">
         <Header loading={this.props.loading} />
         {this.props.children}
       </div>

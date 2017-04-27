@@ -12,9 +12,11 @@ export class TodosPage extends React.Component {
   render() {
     const todos = filterTodos(this.props);
     return (
-      <div>
-        <h1>Todos</h1>
-        <TodoFormContainer/>
+			<div className="body-flex-item">
+				<div className="add-new-todo shadow">
+					<div className="add-title">Todos</div>
+					<TodoFormContainer/>
+				</div>
         <TodoList todos={todos}/>
       </div>
     );

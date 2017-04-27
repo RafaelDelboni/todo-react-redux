@@ -2,16 +2,22 @@ import React, {PropTypes} from 'react';
 
 const TodoItem = ({state, onCheckboxChange, onDoubleClick, onKeyDown, refHandleFocus, onDelete}) => {
     return (
-      <li>
-        <div>
+      <li className="li-container shadow">
+        <div className="todo-container">
           <input
+            id={`done-${state.todo._id}`}
             type="checkbox"
             name="done"
             checked={state.todo.done}
             onChange={onCheckboxChange}
           />
+          <label 
+            className="todo-checkbox" 
+            htmlFor={`done-${state.todo._id}`}
+          />
           { state.isBeingEdited ?
             <input
+              className="todo-input" 
               ref={refHandleFocus}
               type="text"
               name="description"
@@ -19,13 +25,15 @@ const TodoItem = ({state, onCheckboxChange, onDoubleClick, onKeyDown, refHandleF
               onKeyDown={onKeyDown}
             /> 
           :
-            <label 
-              name="description"
+            <div 
+              name="description" 
+              className="todo-input" 
               onDoubleClick={onDoubleClick}>
               {state.todo.description}
-            </label>
+            </div>
           }
           <button
+            className="todo-delete btn remove"
             onClick={onDelete}>
             x
           </button>

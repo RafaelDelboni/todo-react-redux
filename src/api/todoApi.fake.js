@@ -1,7 +1,4 @@
-const todosDb = [
-  {_id: 1, description:'Todo1', done: false},
-  {_id: 2, description:'Todo2', done: true}
-];
+const todosDb = [];
 
 const generateId = () => {
     let d = new Date().getTime();
